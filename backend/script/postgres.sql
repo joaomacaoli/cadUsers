@@ -1,0 +1,37 @@
+DROP TABLE IF EXISTS TB_USERS;
+
+CREATE TABLE TB_USERS (
+  ID UUID DEFAULT GEN_RANDOM_UUID() NOT NULL,
+  NAME TEXT NOT NULL,
+  EMAIL TEXT NOT NULL,
+  PHONE TEXT NOT NULL,
+  LATITUDE TEXT NOT NULL,
+  LONGITUDE TEXT NOT NULL,
+  PRIMARY KEY(ID)
+);
+
+-- create
+INSERT INTO
+  TB_USERS (NAME, EMAIL, PHONE, LATITUDE, LONGITUDE)
+VALUES
+  ('João', 'joao@email.com', '5585999123456', '-3.71839', '-38.5434'),
+  ('Lucas', 'lucas@email.com', '5585999123654', '-3.71839', '-38.5434'),
+  ('Pedro', 'pedro@email.com', '5585999123147', '-3.71839', '-38.5434');
+
+-- read
+SELECT * FROM TB_USERS;
+
+-- update
+UPDATE
+  TB_USERS
+SET
+  NAME= 'Paul',
+  EMAIL = 'paul@email.com'
+WHERE
+  ID = 1; --id is uuid
+
+--delete
+DELETE FROM
+  TB_USERS
+WHERE
+  ID = 2; --id is uuid
