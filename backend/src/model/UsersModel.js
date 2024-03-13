@@ -10,16 +10,41 @@ export default class UsersModel {
     return rows
   }
 
-  async create(fiels, values) {
-    const insertUser = `
+  async create(fields, values) {
+    const insertUserQuery = `
       INSERT INTO
-        ${table} (${fiels})
+        ${table} (${fields})
       VALUES
         (${values});
       `
 
-    const { rows } = await db.query(insertUser)
-
+    const { rows } = await db.query(insertUserQuery)
     return rows
+  }
+
+  async update(id, query) {
+    const updateUserQuery = `
+    UPDATE
+      ${table}
+    SET
+      ${query}
+    WHERE
+      ID = '${id}';
+    `
+
+  const { rows } = await db.query(updateUserQuery)
+  return rows
+  }
+
+  async delete(id) {
+    const deleteUserQuery = `
+      DELETE FROM
+        ${table}
+      WHERE
+        ID = '${id}';
+    `
+
+  const { rows } = await db.query(deleteUserQuery)
+  return rows
   }
 }

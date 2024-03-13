@@ -18,14 +18,37 @@ export default class UserController {
   async create(request, response) {
     const data = request.body
 
-    const dataFields = Object.keys(data)
-    const dataValues = Object.values(data)
-
-    const fiels = dataFields.join(', ')
-    const values = dataValues.map(value => `'${value}'`).join(', ')
+    const fiels = Object.keys(data).join(', ')
+    const values = Object.values(data).map(value => `'${value}'`).join(', ')
 
     try {
       const result = await usersModel.create(fiels, values)
+      response.status(200).send(result)
+    } catch (error) {
+      response.status(500).send(error)
+    }
+  }
+
+  async update(request, response) {
+    const data = request.body
+    const id = request.params.id
+
+    const values = Object.values(data).map(value => ` = '${value}'`)
+    const query = Object.keys(data).map((field, indice) => field + values[indice]).join(', ')
+
+    try {
+      const result = await usersModel.update(id, query)
+      response.status(200).send(result)
+    } catch (error) {
+      response.status(500).send(error)
+    }
+  }
+
+  async delete(request, response) {
+    const id = request.params.id
+
+    try {
+      const result = await usersModel.delete(id)
       response.status(200).send(result)
     } catch (error) {
       response.status(500).send(error)
