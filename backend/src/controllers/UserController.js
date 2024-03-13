@@ -4,12 +4,15 @@ import UsersModel from "../model/UsersModel.js";
 const usersModel = new UsersModel()
 
 export default class UserController {
-  constructor() {}
+  constructor() { }
 
   async read(request, response) {
-    const users = await usersModel.read()
-
-    return response.status(200).send(users)
+    try {
+      const users = await usersModel.read()
+      response.status(200).send(users)
+    } catch (error) {
+      response.status(500).send(error)
+    }
   }
 
   async create(request, response) {
@@ -21,8 +24,11 @@ export default class UserController {
     const fiels = dataFields.join(', ')
     const values = dataValues.map(value => `'${value}'`).join(', ')
 
-    const result = await usersModel.create(fiels, values)
-
-    return response.status(200).send(result)
+    try {
+      const result = await usersModel.create(fiels, values)
+      response.status(200).send(result)
+    } catch (error) {
+      response.status(500).send(error)
+    }
   }
 }

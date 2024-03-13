@@ -1,6 +1,6 @@
 import db from "../db/db.js";
 
-let context = db.connect()
+db.connect()
 
 const table = 'TB_USERS'
 
@@ -11,17 +11,15 @@ export default class UsersModel {
   }
 
   async create(fiels, values) {
-    try {
-      const insertUser = `
+    const insertUser = `
       INSERT INTO
         ${table} (${fiels})
       VALUES
         (${values});
       `
 
-      return await db.query(insertUser)
-    } catch (error) {
-      console.log(error);
-    }
+    const { rows } = await db.query(insertUser)
+
+    return rows
   }
 }
