@@ -1,11 +1,13 @@
 import pg from "pg";
+import "dotenv/config.js";
+
 
 const db = new pg.Client({
-  user: 'joaomacaoli',
-  host: 'localhost',
-  database: 'cadUser',
-  password: 'minhasenhasecreta',
-  port: 5432
+  user: process.env.PG_USER,
+  host: process.env.PG_HOST,
+  database: process.env.PG_DATABASE,
+  password: process.env.PG_PASSWORD,
+  port: process.env.PG_PORT
 })
 
 export default db

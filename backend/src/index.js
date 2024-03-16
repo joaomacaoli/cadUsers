@@ -1,13 +1,14 @@
 import express from 'express';
 import cors from "cors";
 import routes from "./routes/index.js";
+import "dotenv/config.js";
 
 const app = express();
 
-const frontendPort = 3000;
+const frontendPort = process.env.FRONT_PORT;
 app.use(cors({ origin: `http://localhost:${frontendPort}`}));
 
-const backendPort = 3030;
+const backendPort = process.env.SERVER_PORT;
 const message = `Servidor rodando em http://localhost:${backendPort}`;
 
 app.use(express.json());
