@@ -34,7 +34,7 @@ Existe um arquivo `.example.env` na raiz do projeto que pode ser utilizado como 
 8. Acesse a API em `http://localhost:3000`
 
 ## Estrutura do Projeto
-
+```
 ├── src/
 │ ├── controllers/
 │ │ └── userController.js
@@ -48,6 +48,7 @@ Existe um arquivo `.example.env` na raiz do projeto que pode ser utilizado como 
 │ ├── index.js
 ├── .env
 └── README.md
+```
 
 - `src/controllers/`: Contém os controladores da aplicação.
 - `src/db/`: Contém o arquivo de configuração e conexão com o PostgreSQL.
