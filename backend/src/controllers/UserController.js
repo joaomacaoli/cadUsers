@@ -16,6 +16,12 @@ export default class UserController {
   }
 
   async create(request, response) {
+    const { name, email, phone, latitude, longitude } = request.body
+
+    if (!name || !email || !phone || !latitude || !longitude) {
+      return response.status(400).json({ error: "Missing fields!" })
+    }
+
     const data = request.body
 
     const fiels = Object.keys(data).join(', ')
