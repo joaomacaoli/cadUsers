@@ -10,6 +10,11 @@ export default class UsersModel {
     return rows
   }
 
+  async readById(id) {
+    const { rows } = await db.query(`SELECT * FROM ${table} WHERE id = '${id}'`);
+    return rows[0];
+  }
+
   async create(fields, values) {
     const insertUserQuery = `
       INSERT INTO

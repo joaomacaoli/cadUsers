@@ -3,6 +3,13 @@ import UsersModel from "../model/UsersModel.js";
 
 const usersModel = new UsersModel()
 
+async function validateUserExists(id) {
+  const userExists = await usersModel.readById(id);
+  if (!userExists) {
+    throw new Error('User not found!')
+  }
+}
+
 export default class UserController {
   constructor() { }
 
@@ -15,6 +22,18 @@ export default class UserController {
     }
   }
 
+  async readById(request, response) {
+    try {
+      const id = request.params.id
+      await validateUserExists(id)
+
+      const user = await usersModel.readById(id);
+      response.status(200).send(user);
+    } catch (error) {
+      response.status(404).send({ error: error.message });
+    }
+  };
+
   async create(request, response) {
     const { name, email, phone, latitude, longitude } = request.body
 
@@ -22,12 +41,12 @@ export default class UserController {
       return response.status(400).json({ error: "Missing fields!" })
     }
 
-    const data = request.body
-
-    const fiels = Object.keys(data).join(', ')
-    const values = Object.values(data).map(value => `'${value}'`).join(', ')
-
     try {
+      const data = request.body
+
+      const fiels = Object.keys(data).join(', ')
+      const values = Object.values(data).map(value => `'${value}'`).join(', ')
+
       const result = await usersModel.create(fiels, values)
       response.status(200).send(result)
     } catch (error) {
@@ -36,13 +55,14 @@ export default class UserController {
   }
 
   async update(request, response) {
-    const data = request.body
-    const id = request.params.id
-
-    const values = Object.values(data).map(value => ` = '${value}'`)
-    const query = Object.keys(data).map((field, indice) => field + values[indice]).join(', ')
-
     try {
+      const id = request.params.id
+      await validateUserExists(id)
+
+      const data = request.body
+      const values = Object.values(data).map(value => ` = '${value}'`)
+      const query = Object.keys(data).map((field, indice) => field + values[indice]).join(', ')
+
       const result = await usersModel.update(id, query)
       response.status(200).send(result)
     } catch (error) {
@@ -51,13 +71,14 @@ export default class UserController {
   }
 
   async delete(request, response) {
-    const id = request.params.id
-
     try {
+      const id = request.params.id
+      await validateUserExists(id)
+
       const result = await usersModel.delete(id)
       response.status(200).send(result)
     } catch (error) {
-      response.status(500).send(error)
+      response.status(404).send({ error: error.message })
     }
   }
 }
