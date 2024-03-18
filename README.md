@@ -18,6 +18,10 @@ Este é um projeto simples de uma aplicação CRUD (Create, Read, Update, Delete
 - Variáveis de Ambiente: Utilizadas para configurar valores sensíveis ou configuráveis da aplicação de forma dinâmica
 - Docker: Utilizado para criar um container para o PostgreSQL
 
+## Instalação e Uso
+
+[README.md](./backend/README.md)
+
 ## Contribuição
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue para reportar problemas ou sugerir melhorias. Se deseja contribuir, faça um fork do repositório, implemente suas alterações e envie um pull request.
