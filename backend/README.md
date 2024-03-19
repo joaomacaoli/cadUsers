@@ -87,3 +87,15 @@ docker run \
     adminer
 
 ```
+
+### Parar um container
+
+```shell
+docker stop container_name
+```
+
+### Iniciar um container
+
+```shell
+docker start container_name
+```
